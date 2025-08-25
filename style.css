@@ -1,0 +1,171 @@
+/* ---------- page shell ---------- */
+:root{
+  --lite-green:#96f25a;    /* adjust if you need closer match */
+  --deep-green:#1e7f66;
+  --orange:#ff8c00;
+  --card-bg:#141414;
+  --card-shadow:0 12px 28px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+body {
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:#fff;
+
+  /* ---- Green to Blue with 3D lighting ---- */
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,255,180,0.15) 0%, transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(0,140,255,0.12) 0%, transparent 60%),
+    linear-gradient(135deg, #0b3d2e 0%, #0a2856 100%);
+
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* cards wrapper */
+.cards{
+  display:flex;
+  flex-wrap:wrap;
+  gap:22px;                /* gap between cards */
+  justify-content:center;
+}
+
+/* ---------- card shell ---------- */
+.card{
+  position:relative;
+  width:350px;
+  height:200px;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--card-shadow);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  isolation:isolate;    /* keep content above layers */
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.card:hover{
+  transform:translateY(-6px) scale(1.03);
+  box-shadow:0 18px 36px rgba(0,0,0,.45);
+}
+
+/* ---------- template background layers ---------- */
+.card .layer{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+
+/* base gradient (green -> orange) */
+.card .base{
+  background: linear-gradient(135deg, var(--lite-green) 0%, var(--orange) 100%);
+}
+
+/* wave 1: dark diagonal sweep */
+.card .wave-1{
+  background:linear-gradient(135deg, rgba(0,0,0,.22), rgba(0,0,0,.05));
+  clip-path:polygon(0 0, 72% 0, 58% 45%, 0 60%);
+}
+
+/* wave 2: bright highlight ribbon */
+.card .wave-2{
+  background:linear-gradient(135deg, rgba(255,255,255,.35), rgba(255,255,255,.05));
+  clip-path:polygon(20% 30%, 100% 10%, 100% 40%, 12% 55%);
+  mix-blend-mode:soft-light;
+}
+
+/* wave 3: deep green arc */
+.card .wave-3{
+  background:linear-gradient(135deg, var(--deep-green), rgba(0,0,0,.15));
+  clip-path:polygon(0 75%, 65% 60%, 100% 100%, 0% 100%);
+  opacity:.9;
+}
+
+/* ---------- front content ---------- */
+.logo{
+  width:62px;
+  height:auto;
+  margin:4px 0 6px;
+  mix-blend-mode:multiply;
+  z-index:1;
+  opacity:.9;
+}
+
+.title{
+  z-index:1;
+  margin:0;
+  font-weight:800;
+  font-size:1.18rem;
+  letter-spacing:.2px;
+  text-shadow:0 2px 6px rgba(0,0,0,.25);
+}
+
+.subtitle{
+  z-index:1;
+  margin:6px 0 10px;
+  font-size:.85rem;
+  opacity:.95;
+}
+
+.social{
+  z-index:1;
+  display:flex;
+  gap:14px;
+}
+
+.social a{
+  width:34px;
+  height:34px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(2px);
+  text-decoration:none;
+  color:#fff;
+  transition:transform .15s ease, background .15s ease;
+}
+.social a:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.22);
+}
+
+/* ---------- back content ---------- */
+.qr{
+  z-index:1;
+  width:82px;height:82px;object-fit:contain;
+  background:#fff;border-radius:10px;padding:6px;
+  border:2px solid rgba(255,255,255,.35);
+  margin-bottom:10px;
+}
+.site{
+  z-index:1;
+  margin:0;
+  font-size:.92rem;
+  font-weight:700;
+  text-shadow:0 2px 6px rgba(0,0,0,.25);
+}
+
+/* ---------- responsiveness ---------- */
+@media (max-width: 768px){
+  .cards{ flex-direction:column; align-items:center }
+  .card{ width:min(92vw,420px); height:200px }
+}
+@keyframes bgmove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+body {
+  background: linear-gradient(270deg, #1c1e26, #0f2027, #203a43, #2c5364);
+  background-size: 600% 600%;
+  animation: bgmove 20s ease infinite;
+}
